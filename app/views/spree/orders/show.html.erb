@@ -26,3 +26,23 @@
     </p>
   </div>
 </fieldset>
+
+<% 
+  # add script moneyback 
+  content_for :monetrack_script do 
+%>
+  <script>
+  window.onload = function(){
+    TrackM.setOrderID("<%= @order.number %>");
+    <% @order.line_items.each do |item| %>     
+      TrackM.addProduct({
+        product_id: "<%= item.variant.product.id %>",
+        product_price: "<%= item.single_money.to_html %>",
+        product_quantity: "<%= item.quantity %>",
+        product_name: "<%= item.variant.product.name %>"
+      });
+    <% end %>
+    TrackM.track("https://app.monetrack.com");
+  }
+  </script>
+<% end %>

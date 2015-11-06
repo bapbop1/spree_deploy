@@ -34,10 +34,10 @@
   <script>
   window.onload = function(){
     TrackM.setOrderID("<%= @order.number %>");
-    <% @order.line_items.each do |item| %>     
+    <% @order.line_items.each do |item| %>
       TrackM.addProduct({
         product_id: "<%= item.variant.product.id %>",
-        product_price: "<%= item.single_money.to_html %>",
+        product_price: "<%= item.price %>",
         product_quantity: "<%= item.quantity %>",
         product_name: "<%= item.variant.product.name %>"
       });

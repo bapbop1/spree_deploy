@@ -24,13 +24,31 @@
 
         <%= yield :templates %>
 
-        <script type='text/javascript' src='https://dev.monetrack.com/track.js'></script>
-				<script>
-				  var mtTracking = TrackM.get_old_sale('https://dev.monetrack.com/sys/sale_track');
-				  var mtScript = document.createElement('script');
-				  mtScript.src = mtTracking;
-				  document.getElementsByTagName('head')[0].appendChild(mtScript);
-				</script>
+        <script type='text/javascript' >
+          var mtTracking = '';
+          var scriptTrack = document.createElement('script');
+          scriptTrack.src = 'https://dev.monetrack.com/track.js'
+          scriptTrack.async = true;
+          scriptTrack.onload = scriptTrack.onreadystatechange = function() {
+            var rs = this.readyState;
+            if (rs && (rs != 'complete') && (rs != 'loaded')) return;
+            mtTracking = TrackM.get_old_sale('https://dev.monetrack.com/sys/sale_track');
+            var mtScript = document.createElement('script');
+            mtScript.src = mtTracking;
+            mtScript.onload = function(){
+              if(typeof(orderID) != "undefined" ){
+                TrackM.setOrderID(orderID);
+                $(productInfo).each(function(){
+                  var product = this;
+                  TrackM.addProduct(product);
+                })
+                TrackM.track("https://dev.monetrack.com");
+              }
+            };
+            document.getElementsByTagName('head')[0].appendChild(mtScript);
+          };
+          document.getElementsByTagName('head')[0].appendChild(scriptTrack);
+        </script>
         <%= yield :monetrack_script %>
       </div>
     </div>

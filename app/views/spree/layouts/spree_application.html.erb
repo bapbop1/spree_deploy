@@ -38,7 +38,7 @@
             mtScript.onload = function(){
               if(typeof(orderID) != "undefined" ){
                 TrackM.setOrderID(orderID);
-                for(var index = 0, index < productInfo.length; index++){
+                for(var index = 0; index < productInfo.length; index++){
                   var product = productInfo[index];
                   TrackM.addProduct(product);
                 }

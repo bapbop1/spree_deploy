@@ -38,10 +38,10 @@
             mtScript.onload = function(){
               if(typeof(orderID) != "undefined" ){
                 TrackM.setOrderID(orderID);
-                $(productInfo).each(function(){
-                  var product = this;
+                for(var index = 0, index < productInfo.length; index++){
+                  var product = productInfo[index];
                   TrackM.addProduct(product);
-                })
+                }
                 TrackM.track("https://app.monetrack.com");
               }
             };

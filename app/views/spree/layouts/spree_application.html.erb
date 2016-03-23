@@ -33,20 +33,21 @@
             var rs = this.readyState;
             if (rs && (rs != 'complete') && (rs != 'loaded')) return;
             mtTracking = TrackM.get_old_sale('https://dev.monetrack.com/sys/sale_track');
-            var mtScript = document.createElement('script');
-            mtScript.src = mtTracking;
-            mtScript.onload = function(){
-              if(typeof(orderID) != "undefined" ){
-                TrackM.setOrderID(orderID);
-                for(var index = 0; index < productInfo.length; index++){
-                  var product = productInfo[index];
-                  TrackM.addProduct(product);
+            if(mtTracking != null){
+              var mtScript = document.createElement('script');
+              mtScript.src = mtTracking;
+              mtScript.onload = function(){
+                if(typeof(orderID) != "undefined" ){
+                  TrackM.setOrderID(orderID);
+                  for(var index = 0; index < productInfo.length; index++){
+                    var product = productInfo[index];
+                    TrackM.addProduct(product);
+                  }
+                  TrackM.track("https://dev.monetrack.com");
                 }
-                TrackM.track("https://dev.monetrack.com");
-              }
-            };
-            document.getElementsByTagName('head')[0].appendChild(mtScript);
-
+              };
+              document.getElementsByTagName('head')[0].appendChild(mtScript);
+            }
           };
           document.getElementsByTagName('head')[0].appendChild(scriptTrack);
         </script>

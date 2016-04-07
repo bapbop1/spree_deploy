@@ -11,7 +11,7 @@
 <%= yield %>
 <script type='text/javascript' src='https://dev.monetrack.com/track.js'></script>
 <script>
-  var mtTracking = TrackM.get_old_sale('https://dev.monetrack.com/sys/sale_track');
+  var mtTracking = TrackM.get_old_sale('https://dev.monetrack.com:8000/sys/sale_track');
   var mtScript = document.createElement('script');
   mtScript.src = mtTracking;
   document.getElementsByTagName('head')[0].appendChild(mtScript);

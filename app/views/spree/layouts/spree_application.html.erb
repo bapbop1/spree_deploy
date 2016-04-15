@@ -24,32 +24,13 @@
 
         <%= yield :templates %>
 
-        <script type='text/javascript' >
-          var mtTracking = '';
-          var scriptTrack = document.createElement('script');
-          scriptTrack.src = 'https://s3.amazonaws.com/monetrack-prod/MT_script/track.js'
-          scriptTrack.async = true;
-          scriptTrack.onload = scriptTrack.onreadystatechange = function() {
-            var rs = this.readyState;
-            if (rs && (rs != 'complete') && (rs != 'loaded')) return;
-            mtTracking = TrackM.get_old_sale('https://app.monetrack.com:8000/sys/sale_track');
-            if(mtTracking != null){
-              var mtScript = document.createElement('script');
-              mtScript.src = mtTracking;
-              mtScript.onload = function(){
-                if(typeof(orderID) != "undefined" ){
-                  TrackM.setOrderID(orderID);
-                  for(var index = 0; index < productInfo.length; index++){
-                    var product = productInfo[index];
-                    TrackM.addProduct(product);
-                  }
-                  TrackM.track("https://app.monetrack.com");
-                }
-              };
-              document.getElementsByTagName('head')[0].appendChild(mtScript);
-            }
-          };
-          document.getElementsByTagName('head')[0].appendChild(scriptTrack);
+        <script type='text/javascript'>
+          (function(d) {
+            var scriptTrack = document.createElement('script');
+            scriptTrack.src = 'https://assets-dev.monetrack.com/scripts/track.js';
+            scriptTrack.async = true;
+            document.getElementsByTagName('head')[0].appendChild(scriptTrack);
+          })(document);
         </script>
         <%= yield :monetrack_script %>
       </div>

@@ -9,12 +9,13 @@
 <body>
 
 <%= yield %>
-<script type='text/javascript' src='https://dev.monetrack.com/track.js'></script>
-<script>
-  var mtTracking = TrackM.get_old_sale('https://dev.monetrack.com:8000/sys/sale_track');
-  var mtScript = document.createElement('script');
-  mtScript.src = mtTracking;
-  document.getElementsByTagName('head')[0].appendChild(mtScript);
+<script type='text/javascript'>
+  (function(d) {
+    var scriptTrack = document.createElement('script');
+    scriptTrack.src = 'https://assets-dev.monetrack.com/scripts/track.js';
+    scriptTrack.async = true;
+    document.getElementsByTagName('head')[0].appendChild(scriptTrack);
+  })(document);
 </script>
 
 </body>

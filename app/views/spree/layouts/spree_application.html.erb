@@ -34,6 +34,33 @@
         </script>
 
         <%= yield :monetrack_script %>
+
+        <script>
+          //For test lead transaction
+          $(document).ready(function(){
+            $('#existing-customer #new_spree_user').on('submit', function(){
+                TrackM.setActionID('signin');
+                TrackM.lead('https://dev.monetrack.com');
+            });
+
+            $('#new-customer #new_spree_user').on('submit', function(){
+                TrackM.setActionID('signup');
+                TrackM.lead('https://dev.monetrack.com');
+            });
+
+            $('.navbar-form').on('submit', function(){
+              TrackM.setActionID('search');
+              TrackM.lead('https://dev.monetrack.com');
+            });
+
+            $('[href="/logout"]').on('click', function(){
+              TrackM.setActionID('logout');
+              TrackM.lead('https://dev.monetrack.com');
+            });
+
+
+          })
+        </script>
       </div>
     </div>
   </body>

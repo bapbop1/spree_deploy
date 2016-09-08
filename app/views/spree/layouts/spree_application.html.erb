@@ -36,6 +36,16 @@
         <%= yield :monetrack_script %>
 
         <script>
+          function makeid()
+          {
+              var text = "";
+              var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+              for( var i=0; i < 12; i++ )
+                  text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+              return text;
+          }
           //For test lead transaction
           var current_user = <%=raw (try_spree_current_user ? try_spree_current_user.as_json(only: :email) : {email: "anonymous@example.com"}).to_json %>
           //For test lead transaction
@@ -43,24 +53,28 @@
             $('#existing-customer #new_spree_user').on('submit', function(){
                 TrackM.setActionID('signin');
                 TrackM.setActionEmail(current_user.email);
+                TrackM.setOrderID(makeid());
                 TrackM.lead('https://dev.monetrack.com');
             });
 
             $('#new-customer #new_spree_user').on('submit', function(){
                 TrackM.setActionID('signup');
                 TrackM.setActionEmail(current_user.email);
+                TrackM.setOrderID(makeid());
                 TrackM.lead('https://dev.monetrack.com');
             });
 
             $('.navbar-form').on('submit', function(){
               TrackM.setActionID('search');
               TrackM.setActionEmail(current_user.email);
+              TrackM.setOrderID(makeid());
               TrackM.lead('https://dev.monetrack.com');
             });
 
             $('[href="/logout"]').on('click', function(){
               TrackM.setActionID('logout');
               TrackM.setActionEmail(current_user.email);
+              TrackM.setOrderID(makeid());
               TrackM.lead('https://dev.monetrack.com');
             });
 

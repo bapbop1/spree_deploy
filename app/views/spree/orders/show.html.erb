@@ -36,10 +36,10 @@
   var productInfo = [];
   <% @order.line_items.each do |item| %>
     productInfo.push({
-      product_id: "<%= nil %>",
+      product_id: "<%= item.variant.product.id %>",
       product_price: "<%= item.price %>",
       product_quantity: "<%= item.quantity %>",
-      product_name: "<%= item.variant.product.name %>"
+      product_name: "<%= nil %>"
     });
   <% end %>
   </script>

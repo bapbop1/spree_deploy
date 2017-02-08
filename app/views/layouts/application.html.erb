@@ -16,6 +16,15 @@
     scriptTrack.async = true;
     document.getElementsByTagName('head')[0].appendChild(scriptTrack);
   })(document);
+  $( document ).ready(function() {
+    $("a[href*='dev.monetrack.com']").on('click', function(e){
+      if(MTCookie.getHttpCookie("current_visitor_id")){
+        var urlReload = 'https://dev.monetrack.com/ja?locale=ja&change_language=true' + '&visitor_id=' + MTCookie.getHttpCookie("current_visitor_id") + '&parent_id=' + MTCookie.getHttpCookie("current_parent_id");
+        window.open(urlReload, '_blank');
+        return false;
+      }
+    });
+  });
 </script>
 
 </body>

@@ -31,7 +31,7 @@
   # add script moneyback
   content_for :monetrack_script do
 %>
-  <script>
+  <!-- <script>
   var orderID = "<%= @order.number %>";
   var productInfo = [];
   <% @order.line_items.each do |item| %>
@@ -42,5 +42,7 @@
       product_name: "<%= item.variant.product.name %>"
     });
   <% end %>
-  </script>
+  </script> -->
+
+  <%= mt_img_tracking %>
 <% end %>

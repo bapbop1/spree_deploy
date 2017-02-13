@@ -1,7 +1,7 @@
 module ApplicationHelper
   def mt_img_tracking
     if cookies[:current_visitor_id]
-      href = "http://localhost:3000/sys/sale.js"
+      href = "https://dev.monetrack.com/sys/sale.js"
       productInfo = []
       @order.line_items.each do |item|
         productInfo.push({

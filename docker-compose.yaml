@@ -1,0 +1,20 @@
+version: '2'
+services:
+  web:
+    #image: docker.nustechnology.com/docker-rvm:1.0
+    build: .
+    command: sh ./docker_start.sh
+    ports:
+      - "5000:3000"
+    volumes:
+      - .:/devs/spree-mt
+    links:
+      - db
+  db:
+    image: docker.nustechnology.com/mysql:5.5
+    ports:
+      - "3306:3306"
+    environment:
+      DB_NAME: 'spree_dev'
+      DB_USER: 'root'
+      DB_PASS: '123456'

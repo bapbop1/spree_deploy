@@ -2,25 +2,24 @@ module ApplicationHelper
   def mt_img_tracking
     if cookies[:current_visitor_id]
       href = "https://dev.monetrack.com/sys/sale.js"
-      productInfo = []
-      @order.line_items.each do |item|
-        productInfo.push({
-          product_id: item.variant.product.id.to_s,
-          product_price: item.price.to_s,
-          product_quantity: item.quantity.to_s,
-          product_name: item.variant.product.name
-        });
+      productInfo = ""
+      @order.line_items.each_with_index do |item, index|
+        info = {
+          "product_id_#{index+1}": item.variant.product.id.to_s,
+          "price_#{index+1}": item.price.to_s,
+          "quantity_#{index+1}": item.quantity.to_s,
+          "product_name_#{index+1}": item.variant.product.name
+        }
+        productInfo += (info.to_query + "&")
       end
 
       sale = {
-        sale: {
-          visitor_id: cookies[:current_visitor_id],
-          order_id: @order.number,
-          product_info: URI.escape(productInfo.to_json),
-          referer_url: URI.escape(cookies[:referer_url])
-        }
+        visitor_id: cookies[:current_visitor_id],
+        order_id: @order.number,
+        product_info: URI.escape(productInfo.to_json),
+        referer_url: URI.escape(cookies[:referer_url])
       }
-      href+= "?" + sale.to_query
+      href+= "?" + sale.to_query + "&" + productInfo
       image_tag href, width: 1, height: 1, alt: ""
 
     end
@@ -33,12 +32,10 @@ module ApplicationHelper
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        lead: {
-          visitor_id: cookies[:current_visitor_id],
-          action_id: 'signup',
-          action_email: action_email,
-          order_id: SecureRandom.urlsafe_base64
-        }
+        visitor_id: cookies[:current_visitor_id],
+        action_id: 'signup',
+        action_email: action_email,
+        order_id: SecureRandom.urlsafe_base64
       }
       href+= "?" + lead.to_query
       image_tag href, width: 1, height: 1, alt: ""
@@ -52,12 +49,10 @@ module ApplicationHelper
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        lead: {
-          visitor_id: cookies[:current_visitor_id],
-          action_id: 'signin',
-          action_email: action_email,
-          order_id: SecureRandom.urlsafe_base64
-        }
+        visitor_id: cookies[:current_visitor_id],
+        action_id: 'signin',
+        action_email: action_email,
+        order_id: SecureRandom.urlsafe_base64
       }
       href+= "?" + lead.to_query
       image_tag href, width: 1, height: 1, alt: ""
@@ -71,12 +66,10 @@ module ApplicationHelper
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        lead: {
-          visitor_id: cookies[:current_visitor_id],
-          action_id: 'logout',
-          action_email: action_email,
-          order_id: SecureRandom.urlsafe_base64
-        }
+        visitor_id: cookies[:current_visitor_id],
+        action_id: 'logout',
+        action_email: action_email,
+        order_id: SecureRandom.urlsafe_base64
       }
       href+= "?" + lead.to_query
       image_tag href, width: 1, height: 1, alt: ""
@@ -92,12 +85,10 @@ module ApplicationHelper
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        lead: {
-          visitor_id: cookies[:current_visitor_id],
-          action_id: 'search',
-          action_email: action_email,
-          order_id: SecureRandom.urlsafe_base64
-        }
+        visitor_id: cookies[:current_visitor_id],
+        action_id: 'search',
+        action_email: action_email,
+        order_id: SecureRandom.urlsafe_base64
       }
       href+= "?" + lead.to_query
       image_tag href, width: 1, height: 1, alt: ""

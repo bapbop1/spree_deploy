@@ -28,6 +28,6 @@ end
 
 def call_api(options)
   options[:body]["api_token"] = "lvLwEfEXic2d8Y7rKZR7MQ"
-  response = HTTParty.post('https://app.monetrack.com/api/v1/merchants/update_transaction_status', options)
+  response = HTTParty.post('https://dev.monetrack.com/api/v1/merchants/update_transaction_status', options)
   puts response.body, response.code, response.message, response.headers.inspect
 end

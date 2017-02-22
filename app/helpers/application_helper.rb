@@ -5,10 +5,10 @@ module ApplicationHelper
       productInfo = ""
       @order.line_items.each_with_index do |item, index|
         info = {
-          "product_id_#{index+1}": item.variant.product.id.to_s,
-          "price_#{index+1}": item.price.to_s,
-          "quantity_#{index+1}": item.quantity.to_s,
-          "product_name_#{index+1}": item.variant.product.name
+          "product_id_#{index+1}"=> item.variant.product.id.to_s,
+          "price_#{index+1}"=> item.price.to_s,
+          "quantity_#{index+1}"=> item.quantity.to_s,
+          "product_name_#{index+1}"=> item.variant.product.name
         }
         productInfo += (info.to_query + "&")
       end

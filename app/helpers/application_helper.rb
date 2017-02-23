@@ -1,7 +1,7 @@
 module ApplicationHelper
   def mt_img_tracking
     if cookies[:current_visitor_id]
-      href = "https://dev.monetrack.com/sys/sale.js"
+      href = SALE_URL
       productInfo = ""
       @order.line_items.each_with_index do |item, index|
         info = {
@@ -28,7 +28,7 @@ module ApplicationHelper
   def render_signup_lead_img
     if cookies[:current_visitor_id] && cookies[:signup]
       cookies.delete :signup
-      href = "https://dev.monetrack.com/sys/lead.js"
+      href = LEAD_URL
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
@@ -45,7 +45,7 @@ module ApplicationHelper
   def render_signin_lead_img
     if cookies[:current_visitor_id] && cookies[:signin]
       cookies.delete :signin
-      href = "https://dev.monetrack.com/sys/lead.js"
+      href = LEAD_URL
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
@@ -62,7 +62,7 @@ module ApplicationHelper
   def render_logout_lead_img
     if cookies[:current_visitor_id] && cookies[:logout]
       cookies.delete :logout
-      href = "https://dev.monetrack.com/sys/lead.js"
+      href = LEAD_URL
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
@@ -81,7 +81,7 @@ module ApplicationHelper
     session[:taxon] = params[:taxon]
     session[:keywords] = params[:keywords]
     if cookies[:current_visitor_id] && search_trigger
-      href = "https://dev.monetrack.com/sys/lead.js"
+      href = LEAD_URL
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {

@@ -1,3 +1,3 @@
 TRACTJS = 'https://dev.monetrack.com/track.maximize.js'
-SALE_URL = 'https://dev.monetrack.com/sys/sale.js'
-LEAD_URL ='https://dev.monetrack.com/sys/lead.js'
+SALE_URL = 'https://dev.mttag.com/sys/sale'
+LEAD_URL ='https://dev.mttag.com/sys/lead'

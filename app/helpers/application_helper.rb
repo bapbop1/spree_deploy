@@ -1,38 +1,35 @@
 module ApplicationHelper
   def mt_img_tracking
-    if cookies[:current_visitor_id]
-      href = SALE_URL
-      productInfo = ""
-      @order.line_items.each_with_index do |item, index|
-        info = {
-          "product_id_#{index+1}"=> item.variant.product.id.to_s,
-          "price_#{index+1}"=> item.price.to_s,
-          "quantity_#{index+1}"=> item.quantity.to_s,
-          "product_name_#{index+1}"=> item.variant.product.name
-        }
-        productInfo += (info.to_query + "&")
-      end
-
-      sale = {
-        visitor_id: cookies[:current_visitor_id],
-        order_id: @order.number,
-        product_info: URI.escape(productInfo.to_json),
-        referer_url: URI.escape(cookies[:referer_url])
+    href = SALE_URL
+    productInfo = ""
+    @order.line_items.each_with_index do |item, index|
+      info = {
+        "product_id_#{index+1}"=> item.variant.product.id.to_s,
+        "price_#{index+1}"=> item.price.to_s,
+        "quantity_#{index+1}"=> item.quantity.to_s,
+        "product_name_#{index+1}"=> item.variant.product.name
       }
-      href+= "?" + sale.to_query + "&" + productInfo
-      image_tag href, width: 1, height: 1, alt: ""
-
+      productInfo += (info.to_query + "&")
     end
+
+    sale = {
+      merchant_token: "m00026",
+      order_id: @order.number,# + SecureRandom.urlsafe_base64,
+      product_info: URI.escape(productInfo.to_json),
+      referer_url: ""#URI.escape(cookies[:referer_url])
+    }
+    href+= "?" + sale.to_query + "&" + productInfo
+    image_tag href, width: 1, height: 1, alt: ""
   end
 
   def render_signup_lead_img
-    if cookies[:current_visitor_id] && cookies[:signup]
+    if cookies[:signup]
       cookies.delete :signup
-      href = LEAD_URL
+      href = "http://localhost:8000/sys/lead"
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        visitor_id: cookies[:current_visitor_id],
+        merchant_token: "m00026",
         action_id: 'signup',
         action_email: action_email,
         order_id: SecureRandom.urlsafe_base64
@@ -43,13 +40,13 @@ module ApplicationHelper
   end
 
   def render_signin_lead_img
-    if cookies[:current_visitor_id] && cookies[:signin]
+    if cookies[:signin]
       cookies.delete :signin
       href = LEAD_URL
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        visitor_id: cookies[:current_visitor_id],
+        merchant_token: "m00026",
         action_id: 'signin',
         action_email: action_email,
         order_id: SecureRandom.urlsafe_base64
@@ -60,13 +57,13 @@ module ApplicationHelper
   end
 
   def render_logout_lead_img
-    if cookies[:current_visitor_id] && cookies[:logout]
+    if cookies[:logout]
       cookies.delete :logout
       href = LEAD_URL
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        visitor_id: cookies[:current_visitor_id],
+        merchant_token: "m00026",
         action_id: 'logout',
         action_email: action_email,
         order_id: SecureRandom.urlsafe_base64
@@ -80,12 +77,12 @@ module ApplicationHelper
     search_trigger = (params[:taxon].to_s != session[:taxon].to_s) || (params[:keywords].to_s != session[:keywords].to_s)
     session[:taxon] = params[:taxon]
     session[:keywords] = params[:keywords]
-    if cookies[:current_visitor_id] && search_trigger
+    if search_trigger
       href = LEAD_URL
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        visitor_id: cookies[:current_visitor_id],
+        merchant_token: "m00026",
         action_id: 'search',
         action_email: action_email,
         order_id: SecureRandom.urlsafe_base64

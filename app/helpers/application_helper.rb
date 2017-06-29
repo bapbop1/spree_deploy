@@ -25,7 +25,7 @@ module ApplicationHelper
   def render_signup_lead_img
     if cookies[:signup]
       cookies.delete :signup
-      href = "http://localhost:8000/sys/lead"
+      href = LEAD_URL
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {

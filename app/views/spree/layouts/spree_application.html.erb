@@ -10,9 +10,11 @@
   <body class="<%= body_class %>" id="<%= @body_id || 'default' %>" data-hook="body">
     <%= render partial: 'spree/shared/google_analytics.js' %>
     <%= render partial: 'spree/shared/header' %>
-    <%= render partial: 'spree/shared/button' %>
 
     <div class="container">
+      <div class="row">
+        <%=link_to "Sign Up", "https://dev.monetrack.com", class: "btn btn-success test-sub" %>
+      </div>
       <div class="row" data-hook>
         <%= breadcrumbs(@taxon) %>
 

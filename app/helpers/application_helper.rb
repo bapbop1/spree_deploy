@@ -13,7 +13,7 @@ module ApplicationHelper
     end
 
     sale = {
-      merchant_token: "m00026",
+      merchant_token: "Merc02032017",
       order_id: @order.number,# + SecureRandom.urlsafe_base64,
       product_info: URI.escape(productInfo.to_json),
       referer_url: ""#URI.escape(cookies[:referer_url])
@@ -29,7 +29,7 @@ module ApplicationHelper
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        merchant_token: "m00026",
+        merchant_token: "Merc02032017",
         action_id: 'signup',
         action_email: action_email,
         order_id: SecureRandom.urlsafe_base64
@@ -46,7 +46,7 @@ module ApplicationHelper
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        merchant_token: "m00026",
+        merchant_token: "Merc02032017",
         action_id: 'signin',
         action_email: action_email,
         order_id: SecureRandom.urlsafe_base64
@@ -63,7 +63,7 @@ module ApplicationHelper
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        merchant_token: "m00026",
+        merchant_token: "Merc02032017",
         action_id: 'logout',
         action_email: action_email,
         order_id: SecureRandom.urlsafe_base64
@@ -82,7 +82,7 @@ module ApplicationHelper
 
       action_email = try_spree_current_user ? try_spree_current_user.email : "anonymous@example.com"
       lead = {
-        merchant_token: "m00026",
+        merchant_token: "Merc02032017",
         action_id: 'search',
         action_email: action_email,
         order_id: SecureRandom.urlsafe_base64

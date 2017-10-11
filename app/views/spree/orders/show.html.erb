@@ -27,6 +27,22 @@
   </div>
 </fieldset>
 <button id="test-url" class="btn btn-primary">Test Referer URL</button>
+
+<form action="<%= API_URL %>" data-remote="true" method="POST">
+  <input type="hidden" name="api_token" value="WDE-Hdxeh9YmPzFOgPo5cA"/>
+  <input type="hidden" name="order_id" value="<%=@order.number %>"/>
+  <input type="hidden" name="total_amount" value="<%=@order.total %>"/>
+  <input type="hidden" name="status" value="Approved"/>
+  <button class="btn btn-primary">Approve Order MT</button>
+</form>
+
+<form action="<%= API_URL %>" data-remote="true" method="POST">
+  <input type="hidden" name="api_token" value="WDE-Hdxeh9YmPzFOgPo5cA"/>
+  <input type="hidden" name="order_id" value="<%=@order.number %>"/>
+  <input type="hidden" name="total_amount" value="<%=@order.total %>"/>
+  <input type="hidden" name="status" value="Declined"/>
+  <button class="btn btn-primary">Decline Order MT</button>
+</form>
 <%
   # add script moneyback
   content_for :monetrack_script do

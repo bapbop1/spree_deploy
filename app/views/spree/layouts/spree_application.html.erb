@@ -85,5 +85,15 @@
         </script>
       </div>
     </div>
+    <script>
+      // case test change process sign_up
+      $(".test-sub").on('click',function(e){
+        if(MTCookie.getHttpCookie("current_visitor_id")||MTCookie.getHttpCookie("current_parent_id")){
+          var urlReload='https://dev.monetrack.com/ja?locale=ja&change_language=true'+'&visitor_id='+MTCookie.getHttpCookie("current_visitor_id")+'&parent_id='+MTCookie.getHttpCookie("current_parent_id");
+          window.open(urlReload,'_blank');
+          return false;
+        }
+      });
+    </script>
   </body>
 </html>

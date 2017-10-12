@@ -47,16 +47,5 @@
   # add script moneyback
   content_for :monetrack_script do
 %>
-  <script>
-  var orderID = "<%= @order.number %>";
-  var productInfo = [];
-  <% @order.line_items.each do |item| %>
-    productInfo.push({
-      product_id: "<%= item.variant.product.id %>",
-      product_price: "<%= item.price %>",
-      product_quantity: "<%= item.quantity %>",
-      product_name: "<%= item.variant.product.name %>"
-    });
-  <% end %>
-  </script>
+  <%= mt_img_tracking %>
 <% end %>

@@ -27,63 +27,28 @@
 
         <%= yield :templates %>
 
-        <script type='text/javascript'>
-          (function(d) {
-            var scriptTrack = document.createElement('script');
-            scriptTrack.src = 'https://dev.monetrack.com/track.maximize.js';
-            scriptTrack.async = true;
-            document.getElementsByTagName('head')[0].appendChild(scriptTrack);
-          })(document);
-        </script>
-
         <%= yield :monetrack_script %>
 
+        <%= render_search_lead_img %>
+        <%= render_signup_lead_img %>
+        <%= render_signin_lead_img %>
+        <%= render_logout_lead_img %>
+
         <script>
-          function makeid()
-          {
-              var text = "";
-              var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-              for( var i=0; i < 12; i++ )
-                  text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-              return text;
-          }
-          //For test lead transaction
-          var current_user = <%=raw (try_spree_current_user ? try_spree_current_user.as_json(only: :email) : {email: "anonymous@example.com"}).to_json %>
           //For test lead transaction
           $(document).ready(function(){
             $('#existing-customer #new_spree_user').on('submit', function(){
-                TrackM.setActionID('signin');
-                TrackM.setActionEmail(current_user.email);
-                TrackM.setOrderID(makeid());
-                TrackM.lead('https://dev.monetrack.com');
+              document.cookie="signup=1"
             });
 
             $('#new-customer #new_spree_user').on('submit', function(){
-                TrackM.setActionID('signup');
-                TrackM.setActionEmail(current_user.email);
-                TrackM.setOrderID(makeid());
-                TrackM.lead('https://dev.monetrack.com');
-            });
-
-            $('.navbar-form').on('submit', function(){
-              TrackM.setActionID('search');
-              TrackM.setActionEmail(current_user.email);
-              TrackM.setOrderID(makeid());
-              TrackM.lead('https://dev.monetrack.com');
+              document.cookie="signin=1"
             });
 
             $('[href="/logout"]').on('click', function(){
-              TrackM.setActionID('logout');
-              TrackM.setActionEmail(current_user.email);
-              TrackM.setOrderID(makeid());
-              TrackM.lead('https://dev.monetrack.com');
+              document.cookie="logout=1"
             });
-
-
           })
-
         </script>
       </div>
     </div>

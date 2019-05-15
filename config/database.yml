@@ -13,8 +13,8 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: root
-  password: root
+  username: demodeploy
+  password: Gioyeula1.
   socket: /tmp/mysql.sock
 
 development:
@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: spreeexample_production
-  username: spreeexample
-  password: <%= ENV['SPREEEXAMPLE_DATABASE_PASSWORD'] %>
+  username: demodeploy
+  password: Gioyeula1.
